@@ -92,25 +92,25 @@ function renderButtons() {
     document.querySelector('.btn.btn-pepperoni').classList.remove('active');
   }
 
-  if (state.mushrooms){
+  if (state.mushrooms) {
     document.querySelector('.btn-mushrooms').classList.add('active')
   } else {
     document.querySelector('.btn-mushrooms').classList.remove('active')
   }
 
-  if (state.greenPeppers){
+  if (state.greenPeppers) {
     document.querySelector('.btn-green-peppers').classList.add('active')
   } else {
     document.querySelector('.btn-green-peppers').classList.remove('active')
   }
 
-  if (state.whiteSauce){
+  if (state.whiteSauce) {
     document.querySelector('.btn-sauce').classList.add('active')
   } else {
     document.querySelector('.btn-sauce').classList.remove('active')
   }
 
-  if (state.glutenFreeCrust){
+  if (state.glutenFreeCrust) {
     document.querySelector('.btn-crust').classList.add('active')
   } else {
     document.querySelector('.btn-crust').classList.remove('active')
@@ -119,18 +119,26 @@ function renderButtons() {
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
+  // 1. initializing total price, so i can later add to it
   let totalPrice = basePrice;
+  // 2. accessing total price in html and store it variable, so i can later use it to output the newly claculated total
   let totalPriceHTML = document.querySelector('aside.panel.price > strong');
+  // 3. accessing list of ingredients in html and store in variable, so selected ingredients can later be added
   let ingredientListHTML = document.querySelector('aside.panel.price ul');
+  // 4. initializing content of 3. as empty string
   ingredientListHTML.innerHTML = "";
 
+  // 5. looping through ingredients object to check whether ingredients are selected
+  //    – state values of ingredients (selected or not) are stored in state object, so need to check that in conditional
+  //    - if ingredient is selected (state = true), have to add ingredient price to toal
+  //      and add ingredient price and name to list in ingredientListHTML.innerHTML 
 for (ingredient in ingredients) {
-  if (state[ingredient]===true) {
+  if (state[ingredient] === true) {
       totalPrice += ingredients[ingredient].price;
-     ingredientListHTML.innerHTML += `<li>${ingredients[ingredient].price} ${ingredients[ingredient].name}</li>`;
+     ingredientListHTML.innerHTML += `<li>$${ingredients[ingredient].price} ${ingredients[ingredient].name}</li>`;
       }
     }
-
+  // 6. output total price in totalPriceHTML
   totalPriceHTML.innerText = "$" + totalPrice;
 }
 
